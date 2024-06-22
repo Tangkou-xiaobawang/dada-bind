@@ -1,0 +1,208 @@
+[gd_scene load_steps=9 format=3 uid="uid://dk7it2sk50be0"]
+
+[ext_resource type="Texture2D" uid="uid://caeng63b8bldc" path="res://test0/icon.svg" id="1_wi5ov"]
+
+[sub_resource type="GDScript" id="GDScript_5wcjf"]
+script/source = "extends CharacterBody2D
+
+
+func _ready():
+	#当元素出现在场景中，且按键音开关为按下状态时播放声音
+	if $\"..\".is_inside_tree() and Baocunwenjian.anjianyin==1:
+		bofang()
+	pass
+
+
+func  _process(_delta):
+	
+	pass
+
+
+func _physics_process(_delta):
+	#如果yuansuti透明度为0.5，则可以移动
+	if $\"..\".modulate.a ==0.5:
+		get_input()
+		$bofang.stop()
+	if $\"..\".global_position.x<0:
+		$\"..\".queue_free()
+	pass
+
+
+func _input(event):
+	# 检测输入事件是否为鼠标点击事件
+	if event is InputEventKey and event.is_pressed() and event.keycode==KEY_A:
+		pass
+	if event is InputEventMouseButton:
+		if event.is_pressed():
+			if event.button_index == MOUSE_BUTTON_RIGHT:
+				pass
+
+
+func get_input():
+	var speed = 5
+	var input_direction = Input.get_vector(\"go_a\", \"go_d\", \"null\", \"null\")
+	velocity = input_direction * speed
+	$\"..\".position+=velocity
+
+
+#使用音频调制
+#index从1开始到88
+var pitch_scale = 0.0
+func setup0(pitch_index: int):
+	var exponent := (pitch_index - 49.0) / 12.0
+	pitch_scale = pow(2, exponent)
+
+
+func activate0():
+	var tti=int($leixing.text)
+	#导入加载音源的脚本
+	var script00=load(\"res://baocunwenjain/yinyuanliebiao.gd\")
+	#preload函数只接受常量
+	$bofang.stream = script00.a[tti]
+	#声调调节
+	$bofang.pitch_scale = pitch_scale
+	#音量调节
+	$bofang.volume_db = int($yinliang.text)
+	$bofang.play()
+
+
+func _on_area_2d_body_entered(body):
+	tiaozhi(body)
+	pass
+
+
+#调制声音
+func tiaozhi(body):
+	var a=0
+	var b=0
+	var c=0
+	if body.is_in_group('jiance'):
+		var aa=['A', 'B', 'C', 'D', 'E', 'F', 'G', '#A', '#C', '#D', '#F', '#G']
+		var bb=[10,12,1,3,5,6,8,11,2,4,7,9]
+		for i in aa:
+			if $调.text==i:
+				a=str(bb[aa.find(i)])
+				pass
+			pass
+		b=int($阶.text)
+		c=int(int(a)+b*12-9)
+		if 1<=c and c<=88:
+			setup0(c)
+			activate0()
+	if body.is_in_group('haha'):
+		$\"..\".queue_free()
+		pass
+	if body.is_in_group('xuanqu'):
+		$\"..\".modulate.a = 0.5
+		pass
+	pass
+
+
+
+func bofang():
+	var a=0
+	var b=0
+	var c=0
+	var aa=['A', 'B', 'C', 'D', 'E', 'F', 'G', '#A', '#C', '#D', '#F', '#G']
+	var bb=[10,12,1,3,5,6,8,11,2,4,7,9]
+	for i in aa:
+		if $调.text==i:
+			a=str(bb[aa.find(i)])
+			pass
+		pass
+	b=int($阶.text)
+	c=int(int(a)+b*12-9)
+	if 1<=c and c<=88:
+		setup0(c)
+		activate0()
+	pass
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7k4yl"]
+size = Vector2(62, 60)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_od540"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wi5ov")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s3m2v"]
+font_color = Color(0.113725, 0.0235294, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_750p0"]
+font_color = Color(1, 1, 0.247059, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_moq3t"]
+font_color = Color(1, 0.168627, 0.341176, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gd5f7"]
+font_color = Color(0.941176, 0.443137, 1, 1)
+outline_size = 3
+outline_color = Color(0.333333, 0.32549, 1, 1)
+
+[node name="yuansu" type="Node2D" groups=["yuansu"]]
+
+[node name="yuansuti" type="CharacterBody2D" parent="." groups=["yuansu"]]
+z_index = 6
+position = Vector2(31, 0)
+script = SubResource("GDScript_5wcjf")
+
+[node name="bofang" type="AudioStreamPlayer" parent="yuansuti"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="yuansuti"]
+shape = SubResource("RectangleShape2D_7k4yl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="yuansuti"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_od540")
+
+[node name="yinliang" type="Label" parent="yuansuti"]
+offset_left = 2.0
+offset_top = -12.0
+offset_right = 42.0
+offset_bottom = 11.0
+text = "20"
+label_settings = SubResource("LabelSettings_s3m2v")
+horizontal_alignment = 1
+
+[node name="leixing" type="Label" parent="yuansuti"]
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+text = "0"
+label_settings = SubResource("LabelSettings_750p0")
+horizontal_alignment = 1
+
+[node name="阶" type="Label" parent="yuansuti"]
+offset_left = -15.0
+offset_top = -31.0
+offset_right = 25.0
+offset_bottom = -8.0
+text = "4"
+label_settings = SubResource("LabelSettings_moq3t")
+horizontal_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="yuansuti"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="yuansuti/Area2D"]
+shape = SubResource("RectangleShape2D_7k4yl")
+
+[node name="调" type="Label" parent="yuansuti"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -22.0
+offset_top = -31.0
+offset_right = -1.0
+offset_bottom = -8.0
+grow_horizontal = 2
+text = "A"
+label_settings = SubResource("LabelSettings_gd5f7")
+horizontal_alignment = 2
+
+[connection signal="body_entered" from="yuansuti/Area2D" to="yuansuti" method="_on_area_2d_body_entered"]

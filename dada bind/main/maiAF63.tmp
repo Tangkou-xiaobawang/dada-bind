@@ -1,0 +1,147 @@
+[gd_scene load_steps=18 format=3 uid="uid://bmqf4jbrqouv1"]
+
+[ext_resource type="Texture2D" uid="uid://dd8w2gbjgng48" path="res://main/无标题.png" id="1_5neot"]
+[ext_resource type="Script" path="res://main/main.gd" id="1_qqwhi"]
+[ext_resource type="Script" path="res://main/adugen.gd" id="2_u5jrp"]
+[ext_resource type="Texture2D" uid="uid://hgxgu7wccede" path="res://main/geduo.png" id="3_3gq3j"]
+[ext_resource type="Script" path="res://main/add_bg.gd" id="4_nhv1e"]
+[ext_resource type="Script" path="res://main/yinfu_area.gd" id="6_7qgne"]
+[ext_resource type="Script" path="res://main/yinfu_pengzhung.gd" id="6_taerx"]
+[ext_resource type="Script" path="res://main/jiancegan.gd" id="7_1eben"]
+[ext_resource type="Script" path="res://main/yinfu.gd" id="8_crceo"]
+[ext_resource type="Texture2D" uid="uid://qben88svociv" path="res://mu/yuansu/icon.svg" id="9_k1ar8"]
+
+[sub_resource type="GDScript" id="GDScript_m356l"]
+script/source = "extends CharacterBody2D
+
+
+
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1bue"]
+size = Vector2(1919, 91.5)
+
+[sub_resource type="GDScript" id="GDScript_ctyuv"]
+script/source = "extends Sprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+	pass
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgrqq"]
+size = Vector2(45.9766, 41.3416)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e2vm5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_k1ar8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5xobw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3gq3j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5sb5"]
+size = Vector2(41.9766, 551.738)
+
+[node name="main" type="Node2D"]
+position = Vector2(5.02344, 1.68311)
+script = ExtResource("1_qqwhi")
+
+[node name="bgarea" type="CharacterBody2D" parent="."]
+collision_mask = 3
+script = SubResource("GDScript_m356l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bgarea"]
+process_priority = 1
+light_mask = 3
+z_index = 1
+position = Vector2(14.4766, 195.067)
+shape = SubResource("RectangleShape2D_r1bue")
+
+[node name="bg00" type="Sprite2D" parent="bgarea"]
+position = Vector2(14.9766, -88.6831)
+texture = ExtResource("1_5neot")
+script = SubResource("GDScript_ctyuv")
+
+[node name="yinfu" type="CharacterBody2D" parent="."]
+z_index = 6
+position = Vector2(50, 0)
+script = ExtResource("8_crceo")
+
+[node name="yinfu_pengzhung" type="CollisionShape2D" parent="yinfu"]
+z_index = 6
+shape = SubResource("RectangleShape2D_hgrqq")
+script = ExtResource("6_taerx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="yinfu"]
+z_index = 6
+scale = Vector2(0.359375, 0.335938)
+sprite_frames = SubResource("SpriteFrames_e2vm5")
+
+[node name="yinfu_area" type="Area2D" parent="yinfu"]
+z_index = 6
+script = ExtResource("6_7qgne")
+
+[node name="yinfu_pengzhung" type="CollisionShape2D" parent="yinfu/yinfu_area"]
+z_index = 6
+shape = SubResource("RectangleShape2D_hgrqq")
+script = ExtResource("6_taerx")
+
+[node name="adugen" type="CharacterBody2D" parent="." groups=["jiance"]]
+z_index = 20
+position = Vector2(0, 200)
+collision_mask = 0
+script = ExtResource("2_u5jrp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="adugen"]
+z_index = 1
+position = Vector2(0, 3)
+sprite_frames = SubResource("SpriteFrames_5xobw")
+
+[node name="Camera2D" type="Camera2D" parent="adugen"]
+position = Vector2(0, -270)
+
+[node name="add_bg" type="Button" parent="adugen"]
+offset_left = 404.977
+offset_top = -42.6831
+offset_right = 554.977
+offset_bottom = 32.3169
+theme_override_font_sizes/font_size = 30
+text = "添加"
+script = ExtResource("4_nhv1e")
+
+[node name="jiancegan" type="CollisionShape2D" parent="adugen"]
+z_index = 20
+position = Vector2(-25, -328.552)
+shape = SubResource("RectangleShape2D_l5sb5")
+debug_color = Color(0.879025, 0.29844, 0.427876, 0.42)
+script = ExtResource("7_1eben")
+
+[node name="Sprite2D" type="Sprite2D" parent="adugen"]
+z_index = 20
+position = Vector2(-22, -322)
+scale = Vector2(0.0161458, 0.523588)
+texture = ExtResource("1_5neot")
+
+[connection signal="body_entered" from="yinfu/yinfu_area" to="yinfu/yinfu_area" method="_on_body_entered"]
+[connection signal="button_down" from="adugen/add_bg" to="adugen/add_bg" method="_on_button_down"]

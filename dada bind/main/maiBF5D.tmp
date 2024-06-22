@@ -1,0 +1,486 @@
+[gd_scene load_steps=26 format=3 uid="uid://bmqf4jbrqouv1"]
+
+[ext_resource type="Texture2D" uid="uid://dd8w2gbjgng48" path="res://main/无标题.png" id="1_5neot"]
+[ext_resource type="Script" path="res://main/main.gd" id="1_qqwhi"]
+[ext_resource type="Script" path="res://main/adugen.gd" id="2_u5jrp"]
+[ext_resource type="Texture2D" uid="uid://hgxgu7wccede" path="res://main/geduo.png" id="3_3gq3j"]
+[ext_resource type="Script" path="res://main/add_bg.gd" id="4_nhv1e"]
+[ext_resource type="Script" path="res://main/yinfu_area.gd" id="6_7qgne"]
+[ext_resource type="Script" path="res://main/tingzhi.gd" id="7_5dn3f"]
+[ext_resource type="Script" path="res://main/yinyuan.gd" id="7_qbhqg"]
+[ext_resource type="Script" path="res://main/yinfu.gd" id="8_crceo"]
+[ext_resource type="Texture2D" uid="uid://qben88svociv" path="res://mu/yuansu/icon.svg" id="9_k1ar8"]
+[ext_resource type="Script" path="res://main/shubiao.gd" id="11_3620e"]
+[ext_resource type="Texture2D" uid="uid://de2tuii62joss" path="res://mu/dixing.jpg" id="12_0x74j"]
+[ext_resource type="Texture2D" uid="uid://caeng63b8bldc" path="res://test0/icon.svg" id="12_8q24c"]
+[ext_resource type="Script" path="res://main/quedingbaocun.gd" id="14_pow7j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1bue"]
+size = Vector2(1919, 91.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgrqq"]
+size = Vector2(45.9766, 41.3416)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e2vm5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_k1ar8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_o0xdf"]
+script/source = "extends CollisionShape2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+	pass
+	
+
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_a7gdk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5sb5"]
+size = Vector2(30.4825, 551.738)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5xobw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3gq3j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Theme" id="Theme_upig6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qoh2y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tdnqg"]
+font_color = Color(1, 0.309804, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7h42m"]
+size = Vector2(12, 10)
+
+[node name="main" type="Node2D"]
+position = Vector2(0, 1.683)
+script = ExtResource("1_qqwhi")
+
+[node name="消除输入法" type="Button" parent="."]
+modulate = Color(1, 0, 0.027451, 1)
+z_index = 10
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.5
+offset_top = -15.5
+offset_right = 11.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "??"
+metadata/_edit_use_anchors_ = true
+
+[node name="bgarea" type="CharacterBody2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bgarea"]
+process_priority = 1
+light_mask = 3
+z_index = 1
+position = Vector2(0, 195.067)
+shape = SubResource("RectangleShape2D_r1bue")
+
+[node name="yinfu" type="CharacterBody2D" parent="."]
+z_index = 6
+position = Vector2(50, 0)
+script = ExtResource("8_crceo")
+
+[node name="yinfu_pengzhung" type="CollisionShape2D" parent="yinfu"]
+z_index = 6
+shape = SubResource("RectangleShape2D_hgrqq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="yinfu"]
+z_index = 6
+scale = Vector2(0.359375, 0.335938)
+sprite_frames = SubResource("SpriteFrames_e2vm5")
+
+[node name="yinfu_area" type="Area2D" parent="yinfu"]
+z_index = 6
+script = ExtResource("6_7qgne")
+
+[node name="yinfu_pengzhung" type="CollisionShape2D" parent="yinfu/yinfu_area"]
+z_index = 6
+shape = SubResource("RectangleShape2D_hgrqq")
+script = SubResource("GDScript_o0xdf")
+
+[node name="adugen" type="CharacterBody2D" parent="." groups=["jiance"]]
+z_index = 20
+position = Vector2(0, 200)
+collision_mask = 0
+script = ExtResource("2_u5jrp")
+
+[node name="weizhi" type="Label" parent="adugen"]
+offset_top = -73.0
+offset_right = 40.0
+offset_bottom = -50.0
+label_settings = SubResource("LabelSettings_a7gdk")
+
+[node name="weizhi2" type="Label" parent="adugen"]
+offset_left = 100.0
+offset_top = -73.0
+offset_right = 140.0
+offset_bottom = -50.0
+
+[node name="weizhi3" type="Label" parent="adugen"]
+offset_left = 200.0
+offset_top = -73.0
+offset_right = 240.0
+offset_bottom = -50.0
+
+[node name="weizhi4" type="Label" parent="adugen"]
+offset_left = 300.0
+offset_top = -73.0
+offset_right = 340.0
+offset_bottom = -50.0
+
+[node name="weizhi5" type="Label" parent="adugen"]
+offset_left = 400.0
+offset_top = -73.0
+offset_right = 440.0
+offset_bottom = -50.0
+
+[node name="weizhi6" type="Label" parent="adugen"]
+offset_left = 500.0
+offset_top = -73.0
+offset_right = 540.0
+offset_bottom = -50.0
+
+[node name="weizhi_1" type="Label" parent="adugen"]
+offset_left = -100.0
+offset_top = -73.0
+offset_right = -60.0
+offset_bottom = -50.0
+label_settings = SubResource("LabelSettings_a7gdk")
+
+[node name="weizhi_2" type="Label" parent="adugen"]
+offset_left = -200.0
+offset_top = -73.0
+offset_right = -160.0
+offset_bottom = -50.0
+
+[node name="weizhi_3" type="Label" parent="adugen"]
+offset_left = -300.0
+offset_top = -73.0
+offset_right = -260.0
+offset_bottom = -50.0
+
+[node name="weizhi_4" type="Label" parent="adugen"]
+offset_left = -400.0
+offset_top = -73.0
+offset_right = -360.0
+offset_bottom = -50.0
+
+[node name="weizhi_5" type="Label" parent="adugen"]
+offset_left = -500.0
+offset_top = -73.0
+offset_right = -460.0
+offset_bottom = -50.0
+
+[node name="jiancegan" type="CollisionShape2D" parent="adugen"]
+z_index = 20
+position = Vector2(-14.7588, -322.683)
+shape = SubResource("RectangleShape2D_l5sb5")
+debug_color = Color(0.879025, 0.29844, 0.427876, 0.42)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="adugen"]
+z_index = 1
+position = Vector2(0, 3)
+sprite_frames = SubResource("SpriteFrames_5xobw")
+
+[node name="Camera2D" type="Camera2D" parent="adugen"]
+position = Vector2(0, -270)
+ignore_rotation = false
+
+[node name="fullscreen" type="Button" parent="adugen"]
+offset_left = -566.0
+offset_top = -586.0
+offset_right = -535.0
+offset_bottom = -555.0
+text = "[{}]"
+
+[node name="anjiansheng" type="CheckButton" parent="adugen" groups=["anjiansheng"]]
+offset_left = -218.0
+offset_top = 18.317
+offset_right = -122.0
+offset_bottom = 49.317
+button_pressed = true
+text = "按键声"
+
+[node name="yuyan" type="MenuButton" parent="adugen" groups=["yuyan"]]
+offset_left = -522.0
+offset_top = -585.683
+offset_right = -491.0
+offset_bottom = -554.683
+theme = SubResource("Theme_upig6")
+text = "#"
+item_count = 1
+popup/item_0/text = ""
+popup/item_0/id = 0
+
+[node name="zidongsaomiao" type="Button" parent="adugen"]
+offset_left = 351.0
+offset_top = 17.317
+offset_right = 423.0
+offset_bottom = 48.317
+text = "自动扫描"
+
+[node name="yinyuan" type="Button" parent="adugen"]
+offset_left = -330.0
+offset_top = -39.0
+offset_right = -230.0
+offset_bottom = 11.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "查看音源"
+text_overrun_behavior = 3
+script = ExtResource("7_qbhqg")
+
+[node name="tingzhi" type="Button" parent="adugen"]
+offset_left = -220.0
+offset_top = -39.0
+offset_right = -120.0
+offset_bottom = 11.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "停止"
+text_overrun_behavior = 3
+script = ExtResource("7_5dn3f")
+
+[node name="xuanqu" type="Button" parent="adugen"]
+offset_left = 130.0
+offset_top = -39.0
+offset_right = 230.0
+offset_bottom = 11.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "选取"
+text_overrun_behavior = 3
+
+[node name="open" type="Button" parent="adugen"]
+offset_left = 240.0
+offset_top = -39.0
+offset_right = 340.0
+offset_bottom = 11.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "打开"
+text_overrun_behavior = 3
+
+[node name="fuzhi" type="Button" parent="adugen"]
+offset_left = 350.0
+offset_top = -39.0
+offset_right = 450.0
+offset_bottom = 11.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "扫描"
+text_overrun_behavior = 3
+
+[node name="add_bg" type="Button" parent="adugen"]
+offset_left = 460.0
+offset_top = -39.0
+offset_right = 560.0
+offset_bottom = 11.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "粘贴"
+text_overrun_behavior = 3
+script = ExtResource("4_nhv1e")
+
+[node name="Sprite2D" type="Sprite2D" parent="adugen"]
+z_index = 20
+position = Vector2(-16, -322)
+scale = Vector2(0.0161458, 0.523588)
+texture = ExtResource("1_5neot")
+
+[node name="sudu" type="LineEdit" parent="adugen"]
+offset_left = -330.0
+offset_top = 16.317
+offset_right = -230.0
+offset_bottom = 51.317
+text = "500"
+editable = false
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="sudulabel" type="Label" parent="adugen"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -395.0
+offset_top = 21.317
+offset_right = -330.0
+offset_bottom = 44.317
+grow_horizontal = 0
+grow_vertical = 0
+text = "速度:"
+horizontal_alignment = 2
+
+[node name="Area2D" type="Area2D" parent="adugen"]
+
+[node name="jiancegan" type="CollisionShape2D" parent="adugen/Area2D"]
+z_index = 20
+position = Vector2(-15.5, -322.683)
+shape = SubResource("RectangleShape2D_l5sb5")
+debug_color = Color(0.879025, 0.29844, 0.427876, 0.42)
+
+[node name="shubiao" type="CharacterBody2D" parent="." groups=["haha"]]
+visible = false
+position = Vector2(-705.023, -597.683)
+script = ExtResource("11_3620e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shubiao"]
+shape = SubResource("RectangleShape2D_qoh2y")
+
+[node name="Sprite2D" type="Sprite2D" parent="shubiao"]
+scale = Vector2(0.273434, 0.249999)
+texture = ExtResource("12_8q24c")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Label调" type="Label" parent="."]
+offset_left = -814.023
+offset_top = -144.683
+offset_right = -774.023
+offset_bottom = -121.683
+text = "A"
+horizontal_alignment = 2
+
+[node name="Label阶" type="Label" parent="."]
+offset_left = -774.023
+offset_top = -144.683
+offset_right = -734.023
+offset_bottom = -121.683
+text = "4"
+
+[node name="增幅" type="Label" parent="."]
+offset_left = -761.0
+offset_top = -133.683
+offset_right = -721.0
+offset_bottom = -110.683
+text = "20"
+label_settings = SubResource("LabelSettings_tdnqg")
+
+[node name="音源" type="Label" parent="."]
+offset_left = -779.0
+offset_top = -125.683
+offset_right = -739.0
+offset_bottom = -102.683
+text = "0"
+
+[node name="jihuoxuanqu" type="CharacterBody2D" parent="." groups=["xuanqu"]]
+visible = false
+position = Vector2(-575, -544.683)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="jihuoxuanqu"]
+shape = SubResource("RectangleShape2D_7h42m")
+
+[node name="Sprite2D" type="Sprite2D" parent="jihuoxuanqu"]
+scale = Vector2(0.0468749, 0.0729927)
+texture = ExtResource("12_0x74j")
+
+[node name="yinyuanliebiao" type="ItemList" parent="."]
+visible = false
+z_index = 10
+offset_left = -452.0
+offset_top = -510.0
+offset_right = -72.0
+offset_bottom = -78.0
+
+[node name="dakaimulu" type="Button" parent="yinyuanliebiao"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 396.317
+offset_right = 77.0
+offset_bottom = 427.317
+text = "打开目录"
+
+[node name="liebiao" type="ItemList" parent="."]
+visible = false
+z_index = 10
+offset_left = 12.0
+offset_top = -510.0
+offset_right = 352.0
+offset_bottom = -78.0
+
+[node name="baocunliebiao" type="ItemList" parent="."]
+visible = false
+z_index = 10
+offset_left = 302.0
+offset_top = -510.0
+offset_right = 478.0
+offset_bottom = -78.0
+
+[node name="LineEdit" type="LineEdit" parent="baocunliebiao"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 398.317
+offset_right = 133.0
+offset_bottom = 429.317
+text = ".txt"
+placeholder_text = "filename.txt"
+
+[node name="Button" type="Button" parent="baocunliebiao"]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 398.317
+offset_right = 174.0
+offset_bottom = 429.317
+theme_override_font_sizes/font_size = 12
+text = "确定"
+script = ExtResource("14_pow7j")
+
+[connection signal="body_entered" from="yinfu/yinfu_area" to="yinfu/yinfu_area" method="_on_body_entered"]
+[connection signal="pressed" from="adugen/fullscreen" to="adugen" method="_on_fullscreen_pressed"]
+[connection signal="toggled" from="adugen/anjiansheng" to="adugen/yinyuan" method="_on_anjiansheng_toggled"]
+[connection signal="pressed" from="adugen/yuyan" to="." method="_on_yuyan_pressed"]
+[connection signal="pressed" from="adugen/zidongsaomiao" to="." method="_on_zidongsaomiao_pressed"]
+[connection signal="pressed" from="adugen/yinyuan" to="adugen/yinyuan" method="_on_pressed"]
+[connection signal="pressed" from="adugen/tingzhi" to="adugen/tingzhi" method="_on_pressed"]
+[connection signal="pressed" from="adugen/xuanqu" to="." method="_on_xuanqu_pressed"]
+[connection signal="pressed" from="adugen/open" to="." method="_on_open_pressed"]
+[connection signal="pressed" from="adugen/fuzhi" to="." method="_on_luzhi_pressed"]
+[connection signal="pressed" from="adugen/add_bg" to="." method="_on_add_bg_pressed"]
+[connection signal="mouse_entered" from="adugen/sudu" to="adugen" method="_on_sudu_mouse_entered"]
+[connection signal="mouse_exited" from="adugen/sudu" to="adugen" method="_on_sudu_mouse_exited"]
+[connection signal="body_entered" from="adugen/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="pressed" from="yinyuanliebiao/dakaimulu" to="adugen/yinyuan" method="_on_dakaimulu_pressed"]
+[connection signal="pressed" from="baocunliebiao/Button" to="baocunliebiao/Button" method="_on_pressed"]
