@@ -308,6 +308,7 @@ func _on_area_2d_body_entered(body):
 
 #扫描状态检测
 func _on_luzhi_pressed():
+	$jc/fuzhi.release_focus()
 	if $jc/fuzhi.text==Baocunwenjian.citiao[Baocunwenjian.suoyin][4]:
 	#if $jc/fuzhi.text=='扫描':
 		$jc/fuzhi.text=Baocunwenjian.citiao[Baocunwenjian.suoyin][5]
@@ -332,6 +333,7 @@ func _on_luzhi_pressed():
 
 #打开按钮按下时
 func _on_open_pressed():
+	$jc/open.release_focus()
 	if $jc/open.text==Baocunwenjian.citiao[Baocunwenjian.suoyin][1]:
 	#if $jc/open.text=='取消':
 		$jc/open.text=Baocunwenjian.citiao[Baocunwenjian.suoyin][0]
@@ -427,6 +429,7 @@ func geshi_chuli(bb):
 
 #选取状态检测
 func _on_xuanqu_pressed():
+	$jc/xuanqu.release_focus()
 	#选取
 	if $jc/xuanqu.text==Baocunwenjian.citiao[Baocunwenjian.suoyin][2]:
 		#完成
@@ -484,6 +487,7 @@ func fzzhantie(group_name):
 
 
 func _on_zidongsaomiao_pressed():
+	$jc/zidongsaomiao.release_focus()
 	if $jc/zidongsaomiao.text==Baocunwenjian.citiao[Baocunwenjian.suoyin][8]:
 	#if $jc/zidongsaomiao.text=='自动扫描':
 		if $jc/fuzhi.text!=Baocunwenjian.citiao[Baocunwenjian.suoyin][5]:
@@ -520,6 +524,7 @@ func _on_add_bg_pressed():
 
 
 func _on_zidongbofang_pressed():
+	$jc/zidongbofang.release_focus()
 	if $jc/zidongbofang.text=='>>>':
 		$jc/zidongbofang.text='^^'
 		return

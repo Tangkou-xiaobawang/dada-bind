@@ -48,6 +48,7 @@ func _input(event):
 
 
 func _on_pressed():
+	$".".release_focus()
 	if $".".text==Baocunwenjian.citiao[Baocunwenjian.suoyin][12]:
 	#if $".".text=='查看音源':
 		yinyuan_list.clear()
