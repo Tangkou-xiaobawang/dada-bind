@@ -333,6 +333,7 @@ func _on_luzhi_pressed():
 
 #打开按钮按下时
 func _on_open_pressed():
+
 	$jc/open.release_focus()
 	if $jc/open.text==Baocunwenjian.citiao[Baocunwenjian.suoyin][1]:
 	#if $jc/open.text=='取消':
@@ -404,7 +405,7 @@ func geshi_chuli(bb):
 		
 	for i in bb1:
 		var ystemp0=uen.instantiate()
-		ystemp0.position=i[0]+Vector2($jc.position.x,0)
+		ystemp0.position=i[0]
 		ystemp0.get_node('yuansuti').get_node('调').text=i[1]
 		ystemp0.get_node('yuansuti').get_node('阶').text=i[2]
 		ystemp0.get_node('yuansuti').get_node('leixing').text=i[3]
@@ -415,7 +416,7 @@ func geshi_chuli(bb):
 		#设置读条数字
 		if ystemp0.position.x>int($"jc/dutiaotext".text):
 			$"jc/dutiaotext".text=str(int(ystemp0.position.x))
-	nnode.position.x=$jc.position.x
+	nnode.global_position.x=$jc.position.x
 	#创建undoredo活动
 	undo_redo.create_action('addchild')
 	undo_redo.add_do_method(self.add_child.bind(nnode))
