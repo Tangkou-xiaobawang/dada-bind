@@ -76,7 +76,7 @@ func _on_FileList_item_selected(index: int):
 	# 获取选中的文件名
 	var file_name = item_list.get_item_text(index)
 	var neirong=str(Baocunwenjian.read_file("res://baocunwenjain_t/" + file_name))
-	print(neirong)
+	#print(neirong)
 	geshi_chuli(neirong)
 	#取消选中状态
 	$liebiao.deselect_all()
@@ -333,7 +333,6 @@ func _on_luzhi_pressed():
 
 #打开按钮按下时
 func _on_open_pressed():
-
 	$jc/open.release_focus()
 	if $jc/open.text==Baocunwenjian.citiao[Baocunwenjian.suoyin][1]:
 	#if $jc/open.text=='取消':
@@ -403,6 +402,11 @@ func geshi_chuli(bb):
 		var k=[vec,i[2],i[3],i[4],i[5]]
 		bb1.push_back(k)
 		
+	var ajm=0
+	#关闭按键音
+	if Baocunwenjian.anjianyin!=0:
+		ajm=1
+		Baocunwenjian.anjianyin=0
 	for i in bb1:
 		var ystemp0=uen.instantiate()
 		ystemp0.position=i[0]
@@ -425,6 +429,9 @@ func geshi_chuli(bb):
 	undo_redo.add_undo_method(self.remove_child.bind(nnode))
 	#启用undoredo活动
 	undo_redo.commit_action()
+	#恢复按键音
+	if ajm==1:
+		Baocunwenjian.anjianyin=1
 	pass 
 
 
@@ -719,7 +726,7 @@ func do_shuominng():
 	var bin=FileAccess.open("res://baocunwenjain/1.txt",FileAccess.READ)
 	if bin!=null:
 		content = bin.get_as_text()
-		print(content)
+		#print(content)
 		bin.close()
 	else :
 		var bin0=FileAccess.open("res://baocunwenjain/1.txt",FileAccess.WRITE)
