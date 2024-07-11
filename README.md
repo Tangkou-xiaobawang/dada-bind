@@ -6,6 +6,6 @@ You'll be pleasantly surprised
 
 Used MIT
 
-The pro of exe run in win11
+The pro of exe is running on win11
 
-The pro of linux run in ubuntu LTS 22
+The pro of linux is running on ubuntu LTS 22
