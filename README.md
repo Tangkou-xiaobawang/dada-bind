@@ -5,3 +5,6 @@ I don't know how to say this, but the code is really terrible right now. -202406
 You'll be pleasantly surprised
 
 Used MIT
+
+The pro of exe run in win11
+The pro of linux run in ubuntu LTS 22
