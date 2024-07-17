@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmqf4jbrqouv1"]
+
+[ext_resource type="Texture2D" uid="uid://dd8w2gbjgng48" path="res://无标题.png" id="1_5neot"]
+[ext_resource type="Script" path="res://adugen.gd" id="2_u5jrp"]
+[ext_resource type="Texture2D" uid="uid://hgxgu7wccede" path="res://geduo.png" id="3_3gq3j"]
+[ext_resource type="Script" path="res://add_bg.gd" id="4_nhv1e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rjeaa"]
+radius = 42.0476
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5xobw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3gq3j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="main" type="Node2D"]
+position = Vector2(5.02344, 1.68311)
+
+[node name="无标题" type="Sprite2D" parent="."]
+texture = ExtResource("1_5neot")
+
+[node name="add_bg" type="Button" parent="."]
+offset_left = 404.977
+offset_top = -42.6831
+offset_right = 554.977
+offset_bottom = 32.3169
+theme_override_font_sizes/font_size = 30
+text = "添加"
+script = ExtResource("4_nhv1e")
+
+[node name="adugen" type="CharacterBody2D" parent="."]
+script = ExtResource("2_u5jrp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="adugen"]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_rjeaa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="adugen"]
+sprite_frames = SubResource("SpriteFrames_5xobw")
+
+[node name="Camera2D" type="Camera2D" parent="adugen"]
